@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from "./Input/Button.vue";
+import Button from "./Inputs/Button.vue";
 import {useHttp} from "@inertiajs/vue3";
 import {Category} from "@/Types/category";
 import Select from '@/Components/Fields/Select.vue'
