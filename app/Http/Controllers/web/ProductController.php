@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\web;
 
+use App\Actions\GetProductsAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FilterRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,9 +12,9 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index(Request $request)
+    public function index(FilterRequest $request, GetProductsAction $action)
     {
-        $products = Product::with('category')->paginate($request->input('per_page', 10));
+        $products = $action->handle($request->validated());
         return Inertia::render('index', [
             'data' => ProductResource::collection($products)
         ]);

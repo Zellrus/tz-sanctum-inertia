@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Actions\GetProductsAction;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ProductFilter;
 use App\Http\Requests\FilterRequest;
@@ -15,23 +16,9 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(FilterRequest $request)
+    public function index(FilterRequest $request, GetProductsAction $action)
     {
-        $data = $request->validated();
-        $query = Product::query();
-        $filter = app()->make(ProductFilter::class, [
-            'queryParams' => array_filter(
-                $data,
-                fn ($v, $k) => $k !== 'name' && $v !== null,
-                ARRAY_FILTER_USE_BOTH
-            )
-        ]);
-
-//        $products = Product::with('category')e', 10));
-
-
-        $query->filter($filter);
-        $products=  $query->with(['category'])->paginate($request->input('per_page', 10));
+        $products = $action->handle($request->validated());
         return ProductResource::collection($products);
     }
 
