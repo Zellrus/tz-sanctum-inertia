@@ -7,15 +7,13 @@
         :isOpenProp="isOpenProp"
     >
       <div :class="['select-field field', { 'field-error': errors.length >0 }]">
-      <template v-if="!translate"><p>{{ selected??def }}</p></template>
-      <template v-else>{{selected ?  $t(`${translate+selected}`) : def}}</template>
+      <p>{{ selected??def }}</p>
         <Arrow :isRotate="isOpen" />
       </div>
       <template #dropdown>
         <ul class="options">
           <li v-for="option in options" @click="select(option)">
-         <template v-if="!translate">{{option.name || option}}</template>
-         <template v-else>{{option.name ?  $t(`${translate+option.name}`) : $t(translate+option)}}</template>
+         {{option.name || option}}
           </li>
         </ul>
       </template>
@@ -26,8 +24,8 @@
 <script setup>
 import Dropdown from "@/Components/Base/Dropdown.vue";
 import Arrow from "@/Components/Base/Arrow.vue";
-import {ref} from "vue";
-defineProps({
+import {ref, watch} from "vue";
+const props = defineProps({
   label: {
     type: String,
     default: '',
@@ -39,19 +37,19 @@ defineProps({
     type: String,
     default: () => `select-${Math.random().toString(36).substring(2, 9)}`,
   },
-  options: {
-    type: Array,
-  },
+    options: {
+        type: Array,
+    },
+    selected:{
+      type:Number, default: null
+    },
   errors: {
     type: Array,
     default: [],
-  },
-  translate:{
-    type: String,
   }
 })
 const isOpen = ref(false);
-const selected = ref();
+const selected = ref(props.selected);
 const isOpenProp = ref();
 
 const emit = defineEmits(['selected']);
@@ -60,6 +58,12 @@ function select(option) {
   emit('selected', option);
   isOpenProp.value = !isOpenProp.value;
 }
+
+watch(() => props.selected, (newVal) => {
+    if (newVal === null) {
+        selected.value = null
+    }
+})
 </script>
 <style scoped>
 
