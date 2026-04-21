@@ -17,7 +17,7 @@ import { Head } from '@inertiajs/vue3'
 import {Product} from "@/Types/product";
 import AppLayout from "../../Layouts/AppLayout.vue";
 import {computed} from "vue";
-import Button from "@/Components/Input/Button.vue";
+import Button from "@/Components/Inputs/Button.vue";
 
 
 const props = defineProps<{
