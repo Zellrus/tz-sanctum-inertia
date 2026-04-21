@@ -8,7 +8,12 @@ use Illuminate\Support\Facades\Route;
 //
 //}
 
-Route::apiResource('products', ProductController::class);
+Route::apiResource('products', ProductController::class)
+    ->only(['index', 'show']);
 Route::get('categories', [CategoryController::class, 'index']);
 
 
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('products', ProductController::class)
+        ->except(['index', 'show']);
+});

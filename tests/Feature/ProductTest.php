@@ -4,14 +4,24 @@ namespace Tests\Feature;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
 {
     use RefreshDatabase;
     private string $api_route = 'api';
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Sanctum::actingAs(
+            User::factory()->create()
+        );
+    }
     public function test_it_can_create_product_with_valid_data(): void
     {
         $category = Category::factory()->create();
@@ -122,5 +132,4 @@ class ProductTest extends TestCase
             'id' => $product->id,
         ]);
     }
-
 }
