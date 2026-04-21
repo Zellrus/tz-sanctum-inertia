@@ -9,15 +9,13 @@
 </template>
 <script setup lang="ts">
 import {useActiveFiltersStore} from "@/stores/activeFiltersStore";
-import {ref, watch} from "vue";
+import {watch} from "vue";
 const store = useActiveFiltersStore();
-import { usePage } from '@inertiajs/vue3'
-const { url } = usePage()
+
 
 function search(){
-  const search_str = ref<string>(store.filters.name)
-    if (url !== '/') return 123
-
+    store.filters.page = 1
+    store.getFilteredData()
 }
 let timer: number | null = null
 watch(
