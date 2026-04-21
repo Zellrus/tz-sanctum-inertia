@@ -1,5 +1,5 @@
 <template>
-    <Head title="Hello TZ!"/>
+    <Head title="Главная страница"/>
     <AppLayout>
     <main>
         <Filter/>
@@ -61,9 +61,5 @@ main{
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap:10px;
 }
-/*.content-body{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
 
-/*}*/
 </style>

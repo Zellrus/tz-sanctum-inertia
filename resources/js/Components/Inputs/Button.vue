@@ -39,5 +39,11 @@ button:not(:disabled):hover{
 button:not(:disabled):active{
     background-color: var(--button-bg);
 }
-
+.icon{
+    padding:unset
+}
+.danger{
+    border: 1px solid red;
+    background: unset
+}
 </style>
