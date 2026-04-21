@@ -44,13 +44,7 @@ watch(() => store.filteredData, (newData) => {
 </script>
 
 <style scoped>
-main{
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    padding:10px;
-    margin: var(--global-margin);
-}
+
 .content-container{
     display: flex;
     flex-direction: column;

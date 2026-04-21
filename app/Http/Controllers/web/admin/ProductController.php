@@ -20,9 +20,14 @@ class ProductController extends Controller
         ]);
     }
     public function create(){
+        return Inertia::render('admin/products/create');
+    }
+    public function edit(Product $product){
+        return Inertia::render('admin/products/edit',[ 'product'=>
+            ProductResource::make($product)->resolve()
+        ]);
 
     }
-
 
 
 }

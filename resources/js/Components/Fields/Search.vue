@@ -4,7 +4,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd"></path></svg>
     </div>
     <input class="search_input" @input="$emit('update:val', $event.target?.value)"  @keyup.enter="search"  v-model="store.filters.search"  type="text" placeholder="Искать">
-     <button @click.prevent="search" :class="{ 'visible': store.filters.search }" class="search_btn">Искать</button>
+      <button @click.prevent="search" :class="{ 'visible': store.filters.search }" class="search_btn">Искать</button>
   </div>
 </template>
 <script setup lang="ts">
@@ -13,7 +13,7 @@ import {ref, watch} from "vue";
 const store = useActiveFiltersStore();
 import { usePage } from '@inertiajs/vue3'
 const { url } = usePage()
-//TODO
+
 function search(){
   const search_str = ref<string>(store.filters.name)
     if (url !== '/') return 123

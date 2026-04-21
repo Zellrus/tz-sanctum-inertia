@@ -4,9 +4,9 @@
             <Button @click="resetFilter" label="Сбросить фильтры" />
             <Search/>
             <Select
-                @click = "getCategories"
+                @click = "filterStore.getCategories"
                 def="Выберите категорию"
-                :options="categories?.data"
+                :options="filterStore.categories?.data"
                 @selected = "categorySelect"
                 :selected = "store.filters.category_id"
                 :errors="errors?.categories"
@@ -18,28 +18,17 @@
 
 <script setup lang="ts">
 import Button from "./Inputs/Button.vue";
-import {useHttp} from "@inertiajs/vue3";
+
 import {Category} from "@/Types/category";
 import Select from '@/Components/Fields/Select.vue'
 import {ref} from "vue";
 import {useActiveFiltersStore} from "@/stores/activeFiltersStore";
 import Search from "@/Components/Fields/Search.vue";
+import {useFiltersStore} from "@/stores/filtersStore";
 
-const http = useHttp()
 const errors = ref([])
-const categories = ref<Category[] | null>(null)
 const store = useActiveFiltersStore()
-
-function getCategories() {
-    if (categories.value !== null ) return categories.value
-
-    window.scrollTo({top: 0, behavior: 'smooth'})
-    http.get(`/api/categories`,{
-        onSuccess: (response) => {
-            categories.value =  response
-        }
-    })
-}
+const filterStore = useFiltersStore()
 
 function resetFilter(){
     store.resetFilter()

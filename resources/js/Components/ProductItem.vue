@@ -9,7 +9,7 @@
             <p class="category" >Category: {{ item.category.name }}</p>
             <p class="price" >Price: {{ item.price }}</p>
             <div class="admin_mode" v-if="adminMode">
-                <Link href="">  <Button label="Ред." /> </Link>
+                <Link :href="`/admin/products/${item.id}/edit`">  <Button label="Ред." /> </Link>
                 <Button @click.prevent="showConfirmWindow = true" style_type="danger" label="Удалить"/>
             </div>
             <Modal

@@ -3,7 +3,7 @@
     <AppLayout>
        <span style="color: gray"> в тз было сказано делать авторизацию на токенах, а не куках. по этому серверного мидлваера нет для этой страницы</span>
         <main>
-            <Button label="Создать продукт" style="place-self: center"/>
+            <Link href="/admin/products/create" style="place-self: center"><Button label="Создать продукт" /></Link>
             <Filter/>
             <div class="content-container">
                 <div class="content-body">
@@ -27,7 +27,7 @@ import Filter from "@/Components/Filter.vue";
 
 import {useActiveFiltersStore} from "@/stores/activeFiltersStore";
 import {useAuthStore} from "@/stores/useAuthStore.ts";
-import {Head} from "@inertiajs/vue3";
+import {Head, Link} from "@inertiajs/vue3";
 import Button from "@/Components/Inputs/Button.vue";
 const props = defineProps<{
     data: Pagination<Product>
@@ -48,13 +48,7 @@ watch(() => store.filteredData, (newData) => {
 
 </script>
 <style scoped>
-main{
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    padding:10px;
-    margin: var(--global-margin);
-}
+
 .content-container{
     display: flex;
     flex-direction: column;
