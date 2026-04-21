@@ -1,4 +1,5 @@
 <template>
+    <Head title="Hello TZ!"/>
     <AppLayout>
     <main>
         <Filter/>
@@ -25,6 +26,7 @@ import {ref, watch} from "vue";
 import Filter from "../Components/Filter.vue";
 import Skeleton from "@/Components/Skeleton.vue";
 import {useActiveFiltersStore} from "@/stores/activeFiltersStore";
+import {Head} from "@inertiajs/vue3";
 const props = defineProps<{
     data: Pagination<Product>
 }>()

@@ -15,6 +15,8 @@ class ProductResource extends JsonResource
             'description'=>$this->description,
             'price'=>$this->price,
             'category'=>CategoryResource::make($this->category)->resolve(),
+            'created_at'=>$this->created_at,
+            'updated_at'=>$this->updated_at,
         ];
     }
 }
