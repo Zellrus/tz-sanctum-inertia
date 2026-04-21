@@ -40,9 +40,7 @@ const props = defineProps({
     options: {
         type: Array,
     },
-    selected:{
-      type:Number, default: null
-    },
+    selected:{ default: null},
   errors: {
     type: Array,
     default: [],

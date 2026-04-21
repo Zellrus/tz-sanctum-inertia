@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 import api from "@/api/axios"
-
+import { router } from '@inertiajs/vue3'
 export const useAuthStore = defineStore("auth", {
     state: () => ({
         token: localStorage.getItem("token") as string | null,
@@ -58,6 +58,9 @@ export const useAuthStore = defineStore("auth", {
             localStorage.removeItem("token")
 
             delete api.defaults.headers.common["Authorization"]
+            router.visit('/', {
+                replace: true
+            })
         }
     }
 })

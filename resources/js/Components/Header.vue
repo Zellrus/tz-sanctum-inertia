@@ -6,7 +6,7 @@
             <Link v-if="auth.isAuthenticated" class="nav-item" href="/admin/products" ><span>Управление товарами</span></Link>
         </nav>
         <div v-if="!auth.isAuthenticated" @click="showLoginForm = true" class="nav-item"><span>Войти</span></div>
-        <div v-else @click="auth.logout" class="nav-item"  ><span>Выйти</span></div>
+        <div v-else @click="auth.logout" class="nav-item"><span>Выйти</span></div>
     </div>
         <Modal
             v-if="showLoginForm"
