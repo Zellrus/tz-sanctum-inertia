@@ -2,16 +2,42 @@
     <header>
     <div class="header-container">
         <nav class="desktop-nav">
-            <Link class="nav-item" href="/" ><span>Catalog</span></Link>
-            <Link class="nav-item" href="/" ><span>Admin</span></Link>
+            <Link class="nav-item" href="/" ><span>Каталог</span></Link>
+            <Link v-if="auth.isAuthenticated" class="nav-item" href="/" ><span>Управление товарами</span></Link>
         </nav>
-        <Link class="nav-item" href="/" ><span>Login</span></Link>
+        <div v-if="!auth.isAuthenticated" @click="showLoginForm = true" class="nav-item"  ><span>Войти</span></div>
+        <div v-else @click="auth.logout" class="nav-item"  ><span>Выйти</span></div>
     </div>
+        <Modal
+            v-if="showLoginForm"
+            title="Login Form"
+            :isModalCloseOnOutsideClick="false"
+            @close="showLoginForm = false"
+        >
+            <LoginForm  @close="showLoginForm = false" />
+        </Modal>
     </header>
 </template>
 <script setup>
 
 import {Link} from "@inertiajs/vue3";
+
+const Modal = defineAsyncComponent(() =>
+    import("@/Components/Base/Modal.vue")
+)
+
+import LoginForm from "@/Components/Forms/LoginForm.vue";
+import {defineAsyncComponent, ref} from "vue";
+const showLoginForm = ref(false)
+
+
+
+import {useAuthStore} from "@/stores/useAuthStore.ts";
+const auth = useAuthStore()
+
+if (auth.token && !auth.user) {
+    auth.fetchUser()
+}
 </script>
 <style scoped>
 header{
