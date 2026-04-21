@@ -6,7 +6,7 @@
     </AppLayout>
 </template>
 <script setup lang="ts">
-import {Product} from "../../Types/product";
+import {Product} from "@/Types/product";
 import AppLayout from "../../Layouts/AppLayout.vue";
 
 defineProps<{

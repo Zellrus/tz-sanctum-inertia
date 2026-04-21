@@ -6,56 +6,40 @@
             </div>
         </div>
         <div  class="filter_body">
-            <Accordion  header-title="Категории">
-                <template #content>
-                    <div class="filter-item-body">
-<!--                        <Radio-->
-<!--                            v-for="item in filters.channels"-->
-<!--                            :key="item.slug"-->
-<!--                            :title="item.name"-->
-<!--                            :id="item.slug"-->
-<!--                            group="channel"-->
-<!--                            :modelValue="store.filters.channel"-->
-<!--                            @update:modelValue="updateFilter('channel', $event)"-->
-<!--                        />-->
-                    </div>
-                </template>
-            </Accordion>
+            <Select
+                @click = "getCategories"
+                label="Выберите категорию"
+                def="---"
+                :options="categories?.data"
+                @selected = "a => selectedCategory = a.id"
+                :errors="errors?.categories"
+            />
         </div>
     </div>
 </template>
 
-<script setup>
-
+<script setup lang="ts">
 import Button from "./Input/Button.vue";
-import Accordion from "./Accordion.vue";
-import Radio from "./Input/Radio.vue";
+import {useHttp} from "@inertiajs/vue3";
+import {Category} from "@/Types/category";
+import Select from '@/Components/Fields/Select.vue'
+import {ref} from "vue";
 
-// const store = useActivePackagesFiltersStore()
+const http = useHttp()
+const errors = ref([])
+const categories = ref<Category[] | null>(null)
+const selectedCategory = ref<Category | null>(null)
 
+function getCategories() {
+    if (categories.value !== null ) return categories.value
 
-
-// const filters = await packagesFiltersStore.getData()
-
-// function updateFilter(field, value) {
-//     store.filters[field] = value
-//     refresh()
-// }
-// function updateArrayFilter(field, { id, checked }) {
-//     const target = store.filters[field]
-//
-//     const index = target.indexOf(id)
-//
-//     if (checked && index === -1) target.push(id)
-//     if (!checked && index !== -1) target.splice(index, 1)
-//
-//     refresh()
-// }
-// function refresh() {
-//     store.filters.page = 1
-//     store.getFilteredData()
-// }
-
+    window.scrollTo({top: 0, behavior: 'smooth'})
+    http.get(`/api/categories`,{
+        onSuccess: (response) => {
+            categories.value =  response
+        }
+    })
+}
 
 </script>
 

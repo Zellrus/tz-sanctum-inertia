@@ -16,14 +16,15 @@
 
 <script setup lang="ts">
 import ProductItem from "../Components/ProductItem.vue";
-import {Product} from "../Types/product";
-import {Pagination} from "../Types/api";
+import {Product} from "@/Types/product";
+import {Pagination} from "@/Types/api";
 import AppLayout from "../Layouts/AppLayout.vue";
 import PaginationComponent from "../Components/Pagination.vue";
-import { useHttp } from '@inertiajs/vue3'
+import {useHttp} from '@inertiajs/vue3'
 import {ref} from "vue";
 import Filter from "../Components/Filter.vue";
 import Skeleton from "@/Components/Skeleton.vue";
+
 const props = defineProps<{
     data: Pagination<Product>
 }>()

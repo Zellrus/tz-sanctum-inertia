@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import {Product} from "../Types/product";
+import {Product} from "@/Types/product";
 import {Link} from "@inertiajs/vue3";
 
 defineProps<{
