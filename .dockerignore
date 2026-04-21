@@ -1,1 +1,6 @@
+tmp/
 tmp/db
+node_modules/
+vendor/
+.git
+.env
