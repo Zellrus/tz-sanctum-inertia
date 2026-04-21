@@ -4,11 +4,11 @@
         <Filter/>
         <div class="content-container">
             <div class="content-body">
-                <ProductItem  v-for="product in products.data" :item="product"/>
+                <ProductItem v-for="product in products.data" :item="product"/>
 <!-- v-if="!store.loading"-->
 <!--                <Skeleton v-else v-for="i in 10" width="100%" height="100px" ></Skeleton>-->
             </div>
-
+            <p v-if="products?.data.length <= 0 && !store.loading" style="place-self: center">Нет подходящих продуктов. Попробуйте поменять фильтры</p>
             <PaginationComponent @change_page="changePage" :content="products.meta" style="place-self: center"/>
         </div>
     </main>
@@ -21,7 +21,7 @@ import {Product} from "@/Types/product";
 import {Pagination} from "@/Types/api";
 import AppLayout from "../Layouts/AppLayout.vue";
 import PaginationComponent from "../Components/Pagination.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import Filter from "../Components/Filter.vue";
 import Skeleton from "@/Components/Skeleton.vue";
 import {useActiveFiltersStore} from "@/stores/activeFiltersStore";
@@ -33,11 +33,12 @@ const products = ref(props.data)
 
 function changePage(page = 1) {
     store.filters.page = page
-    store.getFilteredData().then(data => {
-        products.value = data
-    })
-}
+    store.getFilteredData()
 
+}
+watch(() => store.filteredData, (newData) => {
+    products.value = newData
+})
 </script>
 
 <style scoped>

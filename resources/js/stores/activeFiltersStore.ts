@@ -27,7 +27,7 @@ export const useActiveFiltersStore = defineStore('useActiveFiltersStore', {
             };
             try {
                 const http = useHttp(queryParams)
-                this.filteredData  = await http.get('/api/products')
+                this.filteredData = await http.get('/api/products')
                 return this.filteredData
             }catch (err){
                 console.error('Request error:', err);
