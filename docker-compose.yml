@@ -11,7 +11,7 @@ services:
       - '80:80'
     depends_on:
       - app
-    container_name: todo_nginx
+    container_name: app_nginx
 
   app:
     build:
@@ -22,15 +22,16 @@ services:
         GID: ${GID}
     volumes:
       - ./:/var/www/
+      - ./_docker/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./_docker/app/php.ini:/usr/local/etc/php/conf.d/php.ini
     depends_on:
         -   db
-    container_name: todo_app
+    container_name: app
     command: >
             sh -c "supervisord -c /etc/supervisor/conf.d/supervisord.conf"
 
   db:
     image: mysql:latest
-    restart : always
     volumes:
        -   ./tmp/db:/var/lib/mysql
     environment:
@@ -41,14 +42,5 @@ services:
     # ports:
     #     -   "8101:3306"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    container_name: todo_db
-  adminer:
-    image: adminer
-    depends_on:
-    - db
-    ports:
-      - 8081:8080
-    container_name: todo_adminer
-    profiles:
-      - dev
+    container_name: app_db
 
